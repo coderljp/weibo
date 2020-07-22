@@ -40,7 +40,7 @@ function get(key) {
       }
       if (val == null) {
         resolve(null)
-        return;
+        return
       }
       try {
         resolve(
