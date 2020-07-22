@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "lint": "eslint --ext .js ./src",
-    "dev": "cross-env NODE_ENV=dev ./node_modules/.bin/nodemon bin/www",
+    "dev": "cross-env NODE_ENV=dev ./node_modules/.bin/nodemon --inspect=9229 bin/www",
     "prd": "cross-env NODE_ENV=production pm2 start bin/www",
-    "test": " cross-env NODE_ENV=test echo \"Error: no test specified\" && exit 1"
+    "test": "cross-env NODE_ENV=test jest --runInBand --forceExit --detectOpenHandles --colors"
   },
   "dependencies": {
     "debug": "^4.1.1",
@@ -30,8 +30,10 @@
     "babel-eslint": "^10.1.0",
     "cross-env": "^7.0.2",
     "eslint": "^7.5.0",
+    "jest": "^26.1.0",
     "nodemon": "^1.19.1",
-    "pre-commit": "^1.2.2"
+    "pre-commit": "^1.2.2",
+    "supertest": "^4.0.2"
   },
   "pre-commit": [
     "lint"
