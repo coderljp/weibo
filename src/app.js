@@ -13,9 +13,10 @@ const { REDIS_CONF } = require('./conf/db')
 
 
 // 路由的导入
+const userViewRouter = require('./routes/view/user')
+const userApiRouter = require('./routes/api/user')
+
 const errorViewRouter = require('./routes/view/error')
-const index = require('./routes')
-const users = require('./routes/users')
 
 // error handler
 let onerrorConf = {}
@@ -64,8 +65,9 @@ app.use(session({
 
 
 // routes  注册
-app.use(index.routes(), index.allowedMethods())
-app.use(users.routes(), users.allowedMethods())
+app.use(userViewRouter.routes(), userViewRouter.allowedMethods())
+app.use(userApiRouter.routes(), userApiRouter.allowedMethods())
+
 app.use(errorViewRouter.routes(), errorViewRouter.allowedMethods())
 
 // error-handling
