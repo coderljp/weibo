@@ -31,11 +31,11 @@ const User = seq.define('user', {
   },
   picture: {
     type: STRING,
-    allowNull: false,
+    comment: '头像，图片地址'
   },
   city: {
     type: STRING,
-    allowNull: false
+    comment: '城市'
   }
 })
 
