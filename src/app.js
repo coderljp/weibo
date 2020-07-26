@@ -7,6 +7,7 @@ const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
 const session = require('koa-generic-session')
 const RedisStore = require('koa-redis')
+const path = require('path')
 
 const { isProd } = require('./utils/env')
 const { REDIS_CONF } = require('./conf/db')
@@ -16,6 +17,8 @@ const { SESSION_SECRET_KEY } = require('./conf/secretKeys')
 // 路由的导入
 const userViewRouter = require('./routes/view/user')
 const userApiRouter = require('./routes/api/user')
+const utils = require('./routes/api/utils')
+// const utilsApiRouter = require('./routes/api/utils')
 
 const errorViewRouter = require('./routes/view/error')
 
@@ -35,6 +38,7 @@ app.use(bodyparser({
 app.use(json())
 app.use(logger())
 app.use(require('koa-static')(__dirname + '/public'))
+app.use(require('koa-static')(path.join(__dirname, '..', 'uploadFiles')))
 
 app.use(views(__dirname + '/views', {
   extension: 'ejs'
@@ -68,6 +72,9 @@ app.use(session({
 // routes  注册
 app.use(userViewRouter.routes(), userViewRouter.allowedMethods())
 app.use(userApiRouter.routes(), userApiRouter.allowedMethods())
+app.use(utils.routes(), utils.allowedMethods())
+
+// app.use(utilsApiRouter.routes(), utilsApiRouter.allowedMethods())
 
 app.use(errorViewRouter.routes(), errorViewRouter.allowedMethods())
 

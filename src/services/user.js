@@ -55,7 +55,53 @@ async function createUser({ userName, password, gender = 3, nickName }) {
   return result.dataValues
 }
 
+/**
+ * 更新用户信息
+ * @param {string} newPassword
+ * @param {string} newNickName
+ * @param {string} newCity
+ * @param {string} userName
+ * @param {string} password
+ * @returns {Promise<void>}
+ */
+async function updateUser(
+  { newPassword, newNickName, newPicture ,newCity },
+  { userName, password}
+  ) {
+    // 拼接修改内容
+    const updateData = {}
+    if (newPassword) {
+      updateData.password = newPassword
+    }
+    if (newNickName) {
+      updateData.nickName = newNickName
+    }
+    if (newPicture) {
+      updateData.picture = newPicture
+    }
+    if (newCity) {
+      updateData.city = newCity
+    }
+    // 拼接查询条件
+    const whereData = {
+      userName
+    }
+    if (password) {
+      whereData.password = password
+    }
+    // console.log(updateData)
+  // console.log(whereData)
+    // 执行修改
+    const result = await User.update(updateData, {
+      where: whereData
+    })
+  // console.log(result)
+    return result[0] > 0
+}
+
+
 module.exports = {
   getUserInfo,
-  createUser
+  createUser,
+  updateUser
 }
