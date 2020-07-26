@@ -14,7 +14,7 @@ require('./model/index')
 //   console.log('auth err')
 // })
 
-seq.sync({ force: true }).then(() => {
+seq.sync({ force: false }).then(() => {
   console.log('sync ok')
   process.exit()
 })
